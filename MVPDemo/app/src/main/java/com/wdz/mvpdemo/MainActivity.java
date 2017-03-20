@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.wdz.mvpdemo.module.elementary.ElementaryFragment;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -28,14 +30,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+
+
             @Override
             public Fragment getItem(int position) {
-                return null;
+
+                switch (position){
+                    case 0:
+                        return new ElementaryFragment();
+                    case 1:
+                        return new ElementaryFragment();
+                    case 2:
+                        return new ElementaryFragment();
+                    case 3:
+                        return new ElementaryFragment();
+                    case 4:
+                        return new ElementaryFragment();
+                    case 5:
+                        return new ElementaryFragment();
+                    default:
+                        return new ElementaryFragment();
+                }
+
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return 6;
             }
 
             @Override
