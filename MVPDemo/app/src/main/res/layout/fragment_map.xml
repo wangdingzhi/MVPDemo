@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="1111"/>
-        
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/previousPageBt"
             android:layout_width="80dp"
@@ -25,6 +25,7 @@
             android:text="上一页"/>
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/nextPageBt"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="下一页"/>

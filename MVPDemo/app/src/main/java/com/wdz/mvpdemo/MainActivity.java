@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.wdz.mvpdemo.module.elementary.ElementaryFragment;
+import com.wdz.mvpdemo.module.map.MapFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         return new ElementaryFragment();
                     case 1:
-                        return new ElementaryFragment();
+                        return new MapFragment();
                     case 2:
                         return new ElementaryFragment();
                     case 3:

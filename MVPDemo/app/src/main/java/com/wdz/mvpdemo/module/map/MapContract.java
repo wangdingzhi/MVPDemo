@@ -18,15 +18,17 @@ public interface MapContract {
 
         void showSwipLoading();
 
+        void hideSwipLoading();
+
     }
 
     interface Presenter extends BasePresenter{
 
-
+        void getAndroidSearchString(String str);
 
     }
 
-    interface Model{
+    interface ModelInterface{
 
     }
 }
