@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,13 @@ import android.widget.Toast;
 
 import com.wdz.mvpdemo.R;
 import com.wdz.mvpdemo.adapter.ItemListAdapter;
+import com.wdz.mvpdemo.bean.Item;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by cd on 17/3/17.
@@ -37,7 +42,7 @@ public class MapFragment extends Fragment implements MapContract.View{
 
     @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.gridRv) RecyclerView gridRv;
+    @Bind(R.id.recyclerView) RecyclerView gridRv;
 
     private ItemListAdapter adapter = new ItemListAdapter();
 
@@ -48,8 +53,9 @@ public class MapFragment extends Fragment implements MapContract.View{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view =inflater.inflate(R.layout.fragment_map,container,false);
+
         ButterKnife.bind(this,view);
-        gridRv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        gridRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         gridRv.setAdapter(adapter);
 
         swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
@@ -58,10 +64,27 @@ public class MapFragment extends Fragment implements MapContract.View{
         return view;
     }
 
-    @Override
-    public void setAndroidItems() {
+    @OnClick(R.id.previousPageBt)
+    void prevoudsPage(){
 
-       
+        loadPage(--pageNo);
+
+        if (pageNo ==1){
+            prevoudsPageBt.setEnabled(false);
+        }
+    }
+
+    @OnClick(R.id.nextPageBt)
+    void nextPage(){
+        loadPage(++pageNo);
+        if (pageNo ==2){
+            prevoudsPageBt.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void setAndroidItems(List<Item> items) {
+        adapter.setImages(items);
     }
 
     @Override
@@ -78,5 +101,9 @@ public class MapFragment extends Fragment implements MapContract.View{
     @Override
     public void hideSwipLoading() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void loadPage(int pageNo){
+        presenter.getAndroidItems(pageNo,10,true);
     }
 }

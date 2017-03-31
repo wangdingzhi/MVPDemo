@@ -1,5 +1,6 @@
 package com.wdz.mvpdemo.network;
 
+import com.wdz.mvpdemo.network.api.GankApi;
 import com.wdz.mvpdemo.network.api.ZhuangbiApi;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
 
     private static ZhuangbiApi zhuangbiApi;
-
+    private static GankApi gankApi;
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
@@ -36,5 +37,20 @@ public class Network {
         }
 
         return zhuangbiApi;
+    }
+
+    public static GankApi getGankApi(){
+
+        if (gankApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl("http://gank.io/api/")
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            gankApi = retrofit.create(GankApi.class);
+        }
+
+        return gankApi;
     }
 }

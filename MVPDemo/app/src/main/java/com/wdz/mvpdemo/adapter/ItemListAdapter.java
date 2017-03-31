@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wdz.mvpdemo.R;
 import com.wdz.mvpdemo.bean.Item;
 
@@ -47,7 +48,9 @@ public class ItemListAdapter extends RecyclerView.Adapter {
 //    }
 
     public void setImages(List<Item> images) {
+
         this.images = images;
+        notifyDataSetChanged();
     }
 
 //    @Override
@@ -77,11 +80,15 @@ public class ItemListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+        DebounceViewHolder debounceViewHolder = (DebounceViewHolder) holder;
+        Item image = images.get(position);
+        Glide.with(holder.itemView.getContext()).load(image.imageUrl).into(debounceViewHolder.imageIv);
+        debounceViewHolder.descriptionTv.setText(image.description);
     }
 
     @Override
     public int getItemCount() {
-        return images ==null?0:images.size()+1;
+        return images ==null?0:images.size();
     }
 
     static class DebounceViewHolder extends RecyclerView.ViewHolder {
