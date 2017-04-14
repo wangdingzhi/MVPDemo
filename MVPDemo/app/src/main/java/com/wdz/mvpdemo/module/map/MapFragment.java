@@ -85,6 +85,7 @@ public class MapFragment extends Fragment implements MapContract.View{
     @Override
     public void setAndroidItems(List<Item> items) {
         adapter.setImages(items);
+        pageTv.setText(getString(R.string.page_with_number,pageNo));
     }
 
     @Override
